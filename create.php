@@ -2,9 +2,6 @@
 function setupProductConnection(){
   try{
     $dbh = new Database();
-    echo '<pre class = "bg-success">';
-    echo 'Connection successful';
-    echo '</pre>';
     return $dbh;
   }
   catch(PDOException $e){
@@ -22,11 +19,6 @@ function dropTableByName($tname){
   if($status === FALSE){
     echo '<pre class ="bg-danger">';
     print_r($dbh->errorInfo());
-    echo '</pre>';
-  }
-  else {
-    echo '<pre class ="bg-success">';
-    echo 'Number of rows affected ' . $status;
     echo '</pre>';
   }
 }
@@ -57,10 +49,6 @@ function createTableGeneric($sql){
   if($status === false){
     echo '<pre class="bg-danger">';
     print_r ( $dbh->errorInfo () );
-    echo '</pre>';
-  } else {
-    echo '<pre class="bg-success">';
-    echo 'Number of rows effected: ' . $status;
     echo '</pre>';
   }
 }
