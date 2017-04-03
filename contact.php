@@ -1,7 +1,13 @@
 <?php
-  include 'templates/header.php';
+require_once 'templates/page_setup.php';
+$title = "Contact";
+$page_name = "contact";
+include 'templates/header.php';
+$current_tab = "ingredient_name";
+$current_page = 1;
+$num_per_page = 8;
+include 'templates/jumbotron.php';
 ?>
-    <?php include 'templates/jumbotron.php'; ?>
 
     <div class = "container-fluid">
     <div class="row">
@@ -13,9 +19,9 @@
         Fax Number: 970-232-0005
         </p>
         <p class="lead">Have a question or want further information?</p>
-        
-        <p>Fill in the short form and we will get back to you as soon as possible.</p> <br> 
-      </div>   
+
+        <p>Fill in the short form and we will get back to you as soon as possible.</p> <br>
+      </div>
       <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">

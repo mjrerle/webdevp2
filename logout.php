@@ -1,14 +1,25 @@
 <?php
-session_name("p1_project_with_mjrerle_and_camja");
-session_start();
+require_once 'templates/page_setup.php';
+// The code below assumes the session is started.
+// It is otherwise exactly the code from Exampl #1
+// http://php.net/manual/en/function.session-destroy.php
+// ............
+// Unset all of the session variables.
 $_SESSION = array();
-if(ini_get("session.use_cookies")){
-  $params = session_get_cookie_params();
-  setcookie(session_name(),'',time()-42000,
-      $params["path"],$params["domain"],
-      $params["secure"],$params["httponly"]
-    );
+
+// If it's desired to kill the session, also delete the session cookie.
+// Note: This will destroy the session, and not just the session data!
+if (ini_get("session.use_cookies")) {
+	$params = session_get_cookie_params();
+	setcookie(session_name(), '', time() - 42000,
+			$params["path"], $params["domain"],
+			$params["secure"], $params["httponly"]
+			);
 }
+
+// Finally, destroy the session.
 session_destroy();
-header("Location: index.php");
+
+// Again, not from the orginal example, redirect back to index.
+header ( "Location: https://$host$uri/index.php" );
 ?>

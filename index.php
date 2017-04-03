@@ -1,4 +1,10 @@
-<?php include 'templates/header.php'; ?>
+
+<?php
+require_once 'templates/page_setup.php';
+$title = "Home";
+$page_name = "home";
+include 'templates/header.php';
+?>
 
 <!-- Carousel
 ================================================== -->

@@ -1,4 +1,10 @@
-<?php include 'templates/header.php';?>
+
+<?php
+require_once 'templates/page_setup.php';
+$title = "About";
+$page_name = "about";
+include 'templates/header.php';
+?>
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <?php include 'templates/jumbotron.php'; ?>
 
