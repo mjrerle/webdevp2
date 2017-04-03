@@ -9,10 +9,26 @@ class Database extends PDO {
 		$comment_num = $this->query ( "SELECT count(*)  FROM comment" );
 		return $comment_num->fetchColumn ();
 	}
+  function getNumberOfCommentsForIngredient($ing){
+    $comment_num = $this->query("SELECT count(*) FROM comment WHERE ingredient_name LIKE '%$ing->name%'");
+    return $comment_num->fetchColumn();
+  }
   function getNumberOfIngredients() {
 		$ingredient_num = $this->query ( "SELECT count(*)  FROM ingredient" );
 		return $ingredient_num->fetchColumn ();
 	}
+  function getRatingStars($numStars){
+    $stars = "";
+    for($i=0;$i<5;$i++){
+      if($i<$numStars){
+        $stars .= "<span class=\"glyphicon glyphicon-star\"></span>\n";
+      }
+      else {
+        $stars .= "<span class=\"glyphicon glyphicon-star-empty\"></span>\n";
+      }
+    }
+    return $stars;
+  }
 	/**
 	 * Functions used by the select page to sort full music database
 	 */
@@ -49,6 +65,29 @@ class Database extends PDO {
 		}
 		return $comments;
 	}
+  function getRatingsFromComments($ingredient){
+    $sql = "SELECT rating FROM comment WHERE ingredient_name LIKE '%$ingredient->name%'";
+    $result = $this->query($sql);
+    if($result === false){
+      print_r($this->errorInfo());
+      return array();
+    }
+    $ratings = array();
+    foreach ($result as $row){
+      $ratings[]= Comment::getRatingFromRow($row);
+    }
+    return $ratings;
+  }
+  function averageRating($ingredient){
+    $ratings = $this->getRatingsFromComments($ingredient);
+    $sum=0;
+    $count=0;
+    foreach($ratings as $r){
+      $sum+=$r;
+      $count++;
+    }
+    return $sum / $count;
+  }
 	/**
 	 * Functions needed for the search example *
 	 */

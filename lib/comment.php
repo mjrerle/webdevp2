@@ -14,6 +14,9 @@
       $comment->ingredient = $row['ingredient_name'];
       return $comment;
     }
+    public static function getRatingFromRow($row){
+      return $row['rating'];
+    }
     function __toString(){
       return $this->name . '(' . $this->rating . ')';
     }
