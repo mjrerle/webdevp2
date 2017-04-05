@@ -41,6 +41,7 @@ function actionReview(){
     if(isset($_GET['id'])){
       require_once "create.php";
       if(!$dbh=setupProductConnection()) die;
+
       dropTableByName("ingredient");
       dropTableByName("comment");
       createTableIngredient();

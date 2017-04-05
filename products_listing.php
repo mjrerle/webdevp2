@@ -40,7 +40,7 @@ foreach($ingredients as $i){
   echo '<div class = "col-sm-3 col-md-3 col-xs-3 product-listing">
           <div class="thumbnail">
             <a href="'.$detailsURL.'">
-              <img src="'.$imageURL.'" alt="thumbnail">
+              <img src="assets/'.$imageURL.'" alt="thumbnail">
             </a>
             <div class = "caption">
               <h4 class = "pull-right">$'.$price.'</h4>
