@@ -26,6 +26,14 @@ function getIngredientsFromFile(){
   }
   return $ingredients;
 }
+function writeComments($comment){
+  $fh = fopen('comments.csv', 'w+') or die("Can't open file");
+  fputcsv ( $fh, array_keys ( get_object_vars ( $users [0] ) ) );
+  for($i = 0; $i < count ( $users ); $i ++) {
+    fputcsv ( $fh, get_object_vars ( $users [$i] ) );
+  }
+  fclose ( $fh );
+}
 function getCommentsFromFile(){
   //Pretty much cut and paste from our original file
   $comments = array();
