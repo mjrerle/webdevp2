@@ -17,7 +17,7 @@ include 'templates/header.php';
     </ol>
     <div class="carousel-inner" role="listbox">
         <div class="item active">
-            <img class="first-slide" src="img/background-1932466_1920.jpg" alt="First slide">
+            <img class="first-slide" src="assets/img/background-1932466_1920.jpg" alt="First slide">
             <div class="container">
                 <div class="carousel-caption">
                     <h1 style="font-size: 6em;">CT310 Ingredients Emporium</h1>
@@ -28,7 +28,7 @@ include 'templates/header.php';
             </div>
         </div>
         <div class="item">
-            <img class="second-slide" src="img/watermelon-815072_1920.jpg" alt="Second slide">
+            <img class="second-slide" src="assets/img/watermelon-815072_1920.jpg" alt="Second slide">
             <div class="container">
                 <div class="carousel-caption">
                     <h1 style="font-size: 6em;">CT310 Ingredients Emporium</h1>
@@ -39,7 +39,7 @@ include 'templates/header.php';
             </div>
         </div>
         <div class="item">
-            <img class="third-slide" src="img/apple-661726_1920.jpg" alt="Third slide">
+            <img class="third-slide" src="assets/img/apple-661726_1920.jpg" alt="Third slide">
             <div class="container">
                 <div class="carousel-caption">
                     <h1 style="font-size: 6em;">CT310 Ingredients Emporium</h1>
@@ -67,7 +67,7 @@ include 'templates/header.php';
     <div class="row" id="marketingOverview">
         <div class="col-md-4 featurette">
             <div class="featurette-image">
-                <img class="img-rounded" src="img/barley-872000_640.jpg" alt="image">
+                <img class="img-rounded" src="assets/img/barley-872000_640.jpg" alt="image">
             </div>
             <h3>Fresh and Organic</h3>
             <p class="featurette-text">
@@ -77,7 +77,7 @@ include 'templates/header.php';
         </div>
         <div class="col-md-4 featurette">
             <div class="featurette-image">
-                <img class="img-rounded" src="img/semi-truck-1285131_640.jpg" alt="image">
+                <img class="img-rounded" src="assets/img/semi-truck-1285131_640.jpg" alt="image">
             </div>
             <h3>Fast Shipping</h3>
             <p class="featurette-text">
@@ -87,7 +87,7 @@ include 'templates/header.php';
         </div>
         <div class="col-md-4 featurette">
             <div class="featurette-image">
-                <img class="img-rounded" src="img/tomato-1205699_1280.jpg" alt="image">
+                <img class="img-rounded" src="assets/img/tomato-1205699_1280.jpg" alt="image">
             </div>
             <h3>Five-Star Quality</h3>
             <p class="featurette-text">
@@ -100,7 +100,7 @@ include 'templates/header.php';
     <div class="row feature-big" id="freshness">
         <h1 style="text-align: center; margin-bottom: 40px;">Always fresh. Always organic.</h1>
         <div class="col-md-5">
-            <img class="img-rounded" src="img/grapes-690230_1280.jpg" style="width: 100%" alt="organic"/>
+            <img class="img-rounded" src="assets/img/grapes-690230_1280.jpg" style="width: 100%" alt="organic"/>
         </div>
         <div class="col-md-7">
             <p>
@@ -123,14 +123,14 @@ include 'templates/header.php';
             </p>
         </div>
         <div class="col-md-5">
-            <img class="img-rounded" src="img/truck-1042600_1280.jpg" style="width: 100%" alt="delivery"/>
+            <img class="img-rounded" src="assets/img/truck-1042600_1280.jpg" style="width: 100%" alt="delivery"/>
         </div>
     </div>
     <hr>
     <div class="row feature-big" id="quality">
         <h1 style="text-align: center; margin-bottom: 40px;">Nothing less than the finest.</h1>
         <div class="col-md-5">
-            <img class="img-rounded" src="img/restaurant-bern-179046_1280.jpg" style="width: 100%" alt="delivery"/>
+            <img class="img-rounded" src="assets/img/restaurant-bern-179046_1280.jpg" style="width: 100%" alt="delivery"/>
         </div>
         <div class="col-md-7">
             <p>

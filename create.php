@@ -12,6 +12,16 @@ function setupProductConnection(){
   }
 }
 
+/*
+function init(){
+  dropTableByName("ingredient");
+  dropTableByName("comment");
+  createTableIngredient();
+  createTableComment();
+  loadProductsIntoEmptyDatabase();
+}
+ */
+
 function dropTableByName($tname){
   global $dbh;
   $sql = "DROP TABLE IF EXISTS $tname";
@@ -27,7 +37,7 @@ function createTableIngredient(){
   $sql = "CREATE TABLE ingredient (
             id INTEGER PRIMARY KEY ASC,
             i_name varchar(50),
-            price double(4),
+            price decimal(10,2),
             description varchar(255),
             imgURL varchar(255))";
   createTableGeneric($sql);
@@ -58,7 +68,7 @@ function loadProductsIntoEmptyDatabase(){
   require "data/list.php";
   $ingredients = getIngredientsFromFile();
   $comments = getCommentsFromFile();
-  $sql_ingredient = "INSERT INTO ingredient(i_name, price, description, imgURL) VALUES (:name, :price, :description, :imgURL)";
+  $sql_ingredient = "INSERT INTO ingredient(i_name, price, description, imgURL, id) VALUES (:name, :price, :description, :imgURL, :id)";
   $sql_comment = "INSERT INTO comment(c_name, rating, words, ingredient_name) VALUES(:name, :rating, :words, :ingredient_name)";
   $ing_stm = $dbh->prepare($sql_ingredient);
   $com_stm = $dbh->prepare($sql_comment);
@@ -76,7 +86,9 @@ function testedInsertIngredient($ingredient, $stmt){
     ':name'=>$ingredient['Name'],
     ':price'=>$ingredient['Price'],
     ':description'=>$ingredient['Description'],
-    ':imgURL'=>$ingredient['IMGURL']))){
+    ':imgURL'=>$ingredient['IMGURL'],
+    ':id'=>$ingredient['ID']
+    ))){
     echo '<pre class="bg-danger">';
     print_r($dbh->errorInfo());
     echo '</pre>';

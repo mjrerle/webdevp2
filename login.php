@@ -2,12 +2,12 @@
 require_once 'templates/page_setup.php';
 $title = "Login";
 $page_name = "login";
-include 'templates/header.php';
-$users = readUsers();
+$users = User::readUsers();
 if(isset($_POST['username']) and isset($_POST['password'])){
   $new=strip_tags(filter_var($_POST['username'],FILTER_SANITIZE_STRING));
   $epw=strip_tags(filter_var($_POST['password'],FILTER_SANITIZE_STRING));
-  if(password_verify($epw, userHashByName($users, $new))){
+
+  if(password_verify($epw, User::userHashByName($users, $new))){
     $_SESSION['startTime'] = time();
     $_SESSION['username'] = $new;
     header( "location: https://$host$uri/index.php");

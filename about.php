@@ -19,7 +19,7 @@ include 'templates/header.php';
         <!-- Intro Content -->
         <div class="row">
             <div class="col-md-6">
-                <img class="img-responsive" src="img/basket.jpg" alt="" style="width:750px;height:450px;">
+                <img class="img-responsive" src="assets/img/basket.jpg" alt="" style="width:750px;height:450px;">
             </div>
             <div class="col-md-6">
                 <h2>About CT310 Ingredients Emporium</h2>
@@ -35,7 +35,7 @@ include 'templates/header.php';
             </div>
             <div class="col-md-4 text-center">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="img/team1.jpg" alt="" style="width:750px;height:450px;">
+                    <img class="img-responsive" src="assets/img/team1.jpg" alt="" style="width:750px;height:450px;">
                     <div class="caption">
                         <h3>John Smalls<br>
                             <small>Chef and Co-founder</small>
@@ -54,7 +54,7 @@ include 'templates/header.php';
             </div>
             <div class="col-md-4 text-center">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="img/team2.jpg" alt="" style="width:750px;height:450px;">
+                    <img class="img-responsive" src="assets/img/team2.jpg" alt="" style="width:750px;height:450px;">
                     <div class="caption">
                         <h3>Wayne Jobs<br>
                             <small>CEO</small>
@@ -73,7 +73,7 @@ include 'templates/header.php';
             </div>
             <div class="col-md-4 text-center">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="img/team3.jpg" alt="" style="width:750px;height:450px;">
+                    <img class="img-responsive" src="assets/img/team3.jpg" alt="" style="width:750px;height:450px;">
                     <div class="caption">
                         <h3>Linda Bateman<br>
                             <small>Supply Chain Manager</small>
@@ -92,7 +92,7 @@ include 'templates/header.php';
             </div>
             <div class="col-md-4 text-center">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="img/team4.jpg" alt="" style="width:750px;height:450px;">
+                    <img class="img-responsive" src="assets/img/team4.jpg" alt="" style="width:750px;height:450px;">
                     <div class="caption">
                         <h3>Kelly Schmidt<br>
                             <small>Regional Manager</small>
@@ -110,7 +110,7 @@ include 'templates/header.php';
             </div>
             <div class="col-md-4 text-center">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="img/team5.jpg" alt="" style="width:750px;height:450px;">
+                    <img class="img-responsive" src="assets/img/team5.jpg" alt="" style="width:750px;height:450px;">
                     <div class="caption">
                         <h3>Haleigh Kantz<br>
                             <small>Corporate Human Resource Manager</small>
@@ -128,7 +128,7 @@ include 'templates/header.php';
             </div>
             <div class="col-md-4 text-center">
                 <div class="thumbnail">
-                    <img class="img-responsive" src="img/team6.jpg" alt="" style="width:750px;height:450px;">
+                    <img class="img-responsive" src="assets/img/team6.jpg" alt="" style="width:750px;height:450px;">
                     <div class="caption">
                         <h3>Katie Mengel<br>
                             <small>Information Security Analyst</small>
@@ -153,22 +153,22 @@ include 'templates/header.php';
                 <h2 class="page-header">Our Customers</h2>
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6">
-                <img class="img-responsive customer-img" src="img/1.jpg" alt="" style="width:500px;height:300px;">
+                <img class="img-responsive customer-img" src="assets/img/1.jpg" alt="" style="width:500px;height:300px;">
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6">
-                <img class="img-responsive customer-img" src="img/2.jpg" alt="" style="width:500px;height:300px;">
+                <img class="img-responsive customer-img" src="assets/img/2.jpg" alt="" style="width:500px;height:300px;">
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6">
-                <img class="img-responsive customer-img" src="img/3.jpg" alt="" style="width:500px;height:300px;">
+                <img class="img-responsive customer-img" src="assets/img/3.jpg" alt="" style="width:500px;height:300px;">
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6">
-                <img class="img-responsive customer-img" src="img/4.jpg" alt="" style="width:500px;height:300px;">
+                <img class="img-responsive customer-img" src="assets/img/4.jpg" alt="" style="width:500px;height:300px;">
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6">
-                <img class="img-responsive customer-img" src="img/5.jpg" alt="" style="width:500px;height:300px;">
+                <img class="img-responsive customer-img" src="assets/img/5.jpg" alt="" style="width:500px;height:300px;">
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6">
-                <img class="img-responsive customer-img" src="img/6.jpg" alt="" style="width:500px;height:300px;">
+                <img class="img-responsive customer-img" src="assets/img/6.jpg" alt="" style="width:500px;height:300px;">
             </div>
         </div>
         <!-- /.row -->
