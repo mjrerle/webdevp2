@@ -5,21 +5,19 @@
  *
  */
 require_once "config.php";
+require_once "assets/user/passwordLib.php";
 
 class User {
-  public $first_name            = 'John';          /* Users first name */
-  public $last_name             = 'Doe';           /* Users last name */
   public $username             = '';              /* User Name */
   public $hash                  = '';              /* Hash of password */
   public $status          = ''; //Expects New, Active, Banned
+  public $email = "";
 
-  public function __construct($first = "", $last = "",
-       $username = "", $passwd = "", $status="New"){
-    $this->first_name = $first;
-    $this->last_name  = $last;
+  public function __construct($username = "", $passwd = "", $status="New", $email=""){
     $this->username  = $username;
     $this->hash = password_hash($passwd, PASSWORD_DEFAULT);
     $this->status = $status;
+    $this->email =$email;
   }
   /* This function provides a complete tab delimeted dump of the contents/values of an object */
   public function contents() {
@@ -36,13 +34,13 @@ class User {
   public static function setupDefaultUsers() {
 	  $users = array ();
   	$i = 0;
-	  $users [$i ++] = new User ( 'testuser', '$2y$10$duu7O.7GM5dZp1LBtrGLm.eg.649dJKdhKHVtup8yqlny1flKQoNe', 'matterle@live.com' );
-    $users [$i ++] = new User ( 'ct310', '$2a$10$heta6oei4CTS/cJqZ6HOquch7Oy.iUOuVXQrH/.tUoURV41/eaIXK', 'nspatil@colostate.edu' );
+	  $users [$i ++] = new User ( 'test', 'fish', 'New', 'matterle@live.com' );
+    $users [$i ++] = new User ( 'ct310', 'Segovia', 'New', 'nspatil@colostate.edu' );
     User::writeUsers ( $users );
   }
 
   public static function writeUsers($users) {
-    $fh = fopen(dirname(__FILE__) . '/users.tsv', 'w+') or die("Can't open file");
+    $fh = fopen(dirname(__FILE__) . '/users.csv', 'w+') or die("Can't open file");
     fwrite($fh, $users[0]->headings()."\n");
     for ($i = 0; $i < count($users); $i++) {
       fwrite($fh, $users[$i]->contents()."\n");
@@ -86,8 +84,8 @@ class User {
   }
 
   public static function readUsers() {
-	 if (! file_exists(dirname(__FILE__).'/users.tsv')) { User::setupDefaultUsers(); }
-    $contents = file_get_contents(dirname(__FILE__).'/users.tsv');
+	 if (! file_exists(dirname(__FILE__).'/users.csv')) { User::setupDefaultUsers(); }
+    $contents = file_get_contents(dirname(__FILE__).'/users.csv');
     $lines    = preg_split("/\r|\n/", $contents, -1, PREG_SPLIT_NO_EMPTY);
     $keys     = preg_split("/\t/", $lines[0]);
     $i        = 0;

@@ -16,6 +16,7 @@
     public static function getIngredientFromRow($row){
       $ingredient = new Ingredient();
       $ingredient->name = $row['i_name'];
+      $ingredient->id = $row['id'];
       $ingredient->price = $row['price'];
       $ingredient->description = $row['description'];
       $ingredient->imgURL = $row['imgURL'];

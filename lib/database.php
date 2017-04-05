@@ -3,7 +3,7 @@ require_once ("ingredient.php");
 require_once ("comment.php");
 class Database extends PDO {
 	public function __construct() {
-		parent::__construct ( "sqlite:" . __DIR__ . "./../ify2.db" );
+		parent::__construct ( "sqlite:" . __DIR__ . "/../ify2.db" );
 	}
 	function getNumberOfComments() {
 		$comment_num = $this->query ( "SELECT count(*)  FROM comment" );
@@ -29,26 +29,16 @@ class Database extends PDO {
     }
     return $stars;
   }
-	/**
-	 * Functions used by the select page to sort full music database
-	 */
-  function getIngredientsByField($field, $num_returned = 25, $offset = 0) {
-		$sql = "SELECT i_name, price, description, imgURL FROM ingredient
-	           ORDER BY $field ASC LIMIT $num_returned OFFSET $offset";
-		$result = $this->query ( $sql );
-		if ($result === FALSE) {
-			// Only doing this for class. Would never do this in real life
-			echo '<pre class="bg-danger">';
-			print_r ( $this->errorInfo () );
-			echo '</pre>';
-			return array ();
-		}
-		$ingredients = array ();
-		foreach ( $result as $row ) {
-			$ingredients [] = Ingredient::getIngredientFromRow ( $row );
-		}
-		return $ingredients;
-	}
+
+  function getIngredientbyID($id){
+    $sql = "SELECT * FROM ingredient WHERE id LIKE '%$id%'";
+    $result = $this->query($sql);
+    if($result===false){
+      print_r($this->errorInfo());
+      return array();
+    }
+    return Ingredient::getIngredientFromRow($result->fetch());
+  }
 	function getComments() {
 		$sql = "SELECT * FROM comment";
 		$result = $this->query ( $sql );
@@ -65,6 +55,36 @@ class Database extends PDO {
 		}
 		return $comments;
 	}
+  function getIngredients() {
+		$sql = "SELECT * FROM ingredient";
+		$result = $this->query ( $sql );
+		if ($result === FALSE) {
+			// Only doing this for class. Would never do this in real life
+			echo '<pre class="bg-danger">';
+			print_r ( $this->errorInfo () );
+			echo '</pre>';
+			return array ();
+		}
+		$ingredients = array ();
+		foreach ( $result as $row ) {
+			$ingredients [] = Ingredient::getIngredientFromRow ( $row );
+		}
+		return $ingredients;
+	}
+  function getCommentsForIngredient($ing){
+    $sql = "SELECT * FROM comment WHERE ingredient_name LIKE '%$ing->name%'";
+    $result = $this->query($sql);
+    if($result === false){
+      print_r($this->errorInfo());
+      return array();
+    }
+    $comments = array();
+    foreach($result as $row){
+      $comments[] = Comment::getCommentFromRow($row);
+    }
+    return $comments;
+
+  }
   function getRatingsFromComments($ingredient){
     $sql = "SELECT rating FROM comment WHERE ingredient_name LIKE '%$ingredient->name%'";
     $result = $this->query($sql);
@@ -86,6 +106,7 @@ class Database extends PDO {
       $sum+=$r;
       $count++;
     }
+    if($count==0) return $sum;
     return $sum / $count;
   }
 	/**
@@ -93,28 +114,16 @@ class Database extends PDO {
 	 */
 	function getNumberOfResults($query_term) {
 		$query_term = SQLite3::escapeString ( $query_term );
-		$sql = "SELECT (SELECT * FROM comment) AS comments (SELECT * FROM ingredient) AS ingredients FROM DUAL
-				WHERE (ingredient_name LIKE '%$query_term%' ";
+		$sql = "SELECT COUNT (*) FROM ingredient
+				WHERE i_name LIKE '%$query_term%' ";
 		// echo "<p>$sql</p>";
 		$result = $this->query ( $sql );
 		return $result->fetchColumn ();
 	}
-	function searchForResultsAndSort($query_term, $sort_col = "i_name", $num_returned = 25, $offset = 0) {
+	function searchForResults($query_term) {
 		$query_term = SQLite3::escapeString ( $query_term );
-		switch ($sort_col) {
-			case "i_name" :
-				$sort_col = "i_name";
-				$sec_sort = "price";
-        break;
-      case "price" :
-        $sort_col = "price";
-        $sec_sort = "i_name";
-        break;
-		}
-		$sql = "SELECT (SELECT * FROM comment) AS comments (SELECT i_name, price, description, imgURL FROM ingredient) AS ingredients FROM DUAL
-          WHERE (i_name LIKE '%$query_term%')
-					ORDER BY $sort_col ASC, $sec_sort ASC
-					LIMIT $num_returned OFFSET $offset";
+		$sql = "SELECT i_name, id, price, description, imgURL FROM ingredient
+          WHERE (i_name LIKE '%$query_term%')";
 		$result = $this->query ( $sql );
 		if ($result === FALSE) {
 			echo $sql;
@@ -179,4 +188,29 @@ class Database extends PDO {
 		}
 		return TRUE;
 	}
+  function insertComment($comment){
+
+    $sql = "INSERT INTO comment (c_name, rating, words, id, ingredient_name)
+            VALUES (:c_name, :rating, :words, :id, :ingredient_name)";
+    $stm = $this->prepare($sql);
+    return $stm->execute(array(
+      ":c_name" => $comment["name"],
+      ":rating" => $comment["rating"],
+      ":words"  => $comment["words"],
+      ":id"     => $comment["id"],
+      ":ingredient_name" => $comment["ingredient"]
+    ));
+  }
+  function insertIngredient($ingredient){
+    $sql = "INSERT INTO ingredient (i_name, price, description, imgURL, id)
+            VALUES (:i_name, :price, :description, :imgURL, :id)";
+    $stm = $this->prepare($sql);
+    return $stm->execute(array(
+      ":i_name" => $ingredient["name"],
+      ":price" => $ingredient["price"],
+      ":description" => $ingredient["description"],
+      ":imgURL" => $ingredient["imgURL"],
+      ":id" => $ingredient["ID"]
+    ));
+  }
 }

@@ -5,7 +5,15 @@
     public $words;
     public $id;
     public $ingredient;
-
+    /*
+    function __construct($name="",$rating,$words="", $id, $ingredient=""){
+      $this->name = $name;
+      $this->rating = $rating;
+      $this->words=$words;
+      $this->id=$id;
+      $this->ingredient=$ingredient;
+    }
+    */
     public static function getCommentFromRow($row){
       $comment = new Comment();
       $comment->name = $row['c_name'];
