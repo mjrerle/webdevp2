@@ -67,7 +67,6 @@
                         echo filter_var($_SESSION['username'],FILTER_SANITIZE_STRING);
                     ?>
                       <li><a href="logout.php">Logout</a></li>
-                      <li><a href="signup.php">Sign up</a></li>
                       <?php
                       }
                       else{ echo "Sign In";}
