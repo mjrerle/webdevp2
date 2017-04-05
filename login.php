@@ -10,6 +10,7 @@ if(isset($_POST['username']) and isset($_POST['password'])){
   if(password_verify($epw, User::userHashByName($users, $new))){
     $_SESSION['startTime'] = time();
     $_SESSION['username'] = $new;
+    $_SESSION['valid'] = true;
     header( "location: https://$host$uri/index.php");
   }
 }
@@ -38,7 +39,6 @@ if(isset($_POST['username']) and isset($_POST['password'])){
  			    <button class="btn btn-lg btn-primary btn-block"  name="submit" value="login" type="Submit">Login</button><br><br>
         </form>
         <a href="logout.php">Click here to logout.</a><br>
-        <a href="signup.php">Not Registered? Sign up!</a><br>
         <a href="forgot_password.php">Forgot password? Click here to reset.</a><br>
       </div>
     <div class="col-md-4"></div>

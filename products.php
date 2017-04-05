@@ -1,4 +1,11 @@
 <?php
+require_once "create.php";
+if(!$dbh=setupProductConnection()) die;
+dropTableByName("ingredient");
+dropTableByName("comment");
+createTableIngredient();
+createTableComment();
+loadProductsIntoEmptyDatabase();
 if(isset($_GET['action'])){
   $action = $_GET['action'];
   if($action=='view'){
@@ -39,15 +46,7 @@ function checkProductID(){
 function actionReview(){
   if($_SERVER['REQUEST_METHOD']=='POST'){
     if(isset($_GET['id'])){
-      require_once "create.php";
-      if(!$dbh=setupProductConnection()) die;
-
-      dropTableByName("ingredient");
-      dropTableByName("comment");
-      createTableIngredient();
-      createTableComment();
-      loadProductsIntoEmptyDatabase();
-
+      global $dbh;
       $id = checkProductID();
       $ingredient = $dbh->getIngredientByID($id)->name;
       $ratingOkay=$submissionOkay=true;

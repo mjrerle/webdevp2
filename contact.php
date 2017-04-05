@@ -28,7 +28,7 @@ include 'templates/jumbotron.php';
         <!-- BEGIN DOWNLOAD PANEL -->
         <div class="panel panel-default well">
 <?php
-  include 'includes/contact_form_submission.php';
+  include 'templates/contact_form_submission.php';
 ?>
         </div><!-- end panel-body -->
         </div><!-- end panel -->

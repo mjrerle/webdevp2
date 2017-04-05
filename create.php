@@ -1,7 +1,9 @@
 <?php
+require_once 'lib/database.php';
 function setupProductConnection(){
   try{
     $dbh = new Database();
+
     return $dbh;
   }
   catch(PDOException $e){
@@ -12,15 +14,7 @@ function setupProductConnection(){
   }
 }
 
-/*
-function init(){
-  dropTableByName("ingredient");
-  dropTableByName("comment");
-  createTableIngredient();
-  createTableComment();
-  loadProductsIntoEmptyDatabase();
-}
- */
+
 
 function dropTableByName($tname){
   global $dbh;
@@ -65,7 +59,7 @@ function createTableGeneric($sql){
 
 function loadProductsIntoEmptyDatabase(){
   global $dbh;
-  require "data/list.php";
+  require_once "data/list.php";
   $ingredients = getIngredientsFromFile();
   $comments = getCommentsFromFile();
   $sql_ingredient = "INSERT INTO ingredient(i_name, price, description, imgURL, id) VALUES (:name, :price, :description, :imgURL, :id)";

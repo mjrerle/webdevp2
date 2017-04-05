@@ -14,7 +14,7 @@ include 'templates/jumbotron.php';
 <div class = "container-fluid product-details">
   <div class="row">
     <div class="col-md-3" id = "productImgCol">
-      <img class = "product-image" src = "<?php echo 'assets/'.$ingredient->imgURL;?>" alt="product_image">
+      <img class = "product-image" src = "<?php echo 'assets/img/'.$ingredient->imgURL;?>" alt="product_image">
     </div>
     <div class = "col-md-3" id="productDetailsCol">
       <h3><?php echo $ingredient->name; ?></h3>

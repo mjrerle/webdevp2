@@ -5,21 +5,13 @@ $page_name = "products";
 include "templates/header.php";
 $current_tab = "i_name";
 $current_page=1;
-$num_per_page =4;
-require_once 'create.php';
-/*
-if (!$dbh=setupProductConnection()) die;
-dropTableByName("ingredient");
-dropTableByName("comment");
-createTableIngredient();
-createTableComment();
-loadProductsIntoEmptyDatabase();
-*/
+$num_per_page=4;
+
+if(isset($_SESSION['username'])) $submissionOkay=true;
 $dbh = new Database();
 $max_pages = ceil($dbh->getNumberOfIngredients()/$num_per_page);
 $offset = $num_per_page * ($current_page-1);
-$ingredients = $dbh->getIngredientsByField($current_tab, $num_per_page, $offset);
-$comments = $dbh->getComments();
+$ingredients = $dbh->getIngredients();
 include "templates/jumbotron.php";
 ?>
 <div class = "container-fluid product-list" id="content" style ="">
@@ -40,7 +32,7 @@ foreach($ingredients as $i){
   echo '<div class = "col-sm-3 col-md-3 col-xs-3 product-listing">
           <div class="thumbnail">
             <a href="'.$detailsURL.'">
-              <img src="assets/'.$imageURL.'" alt="thumbnail">
+              <img src="assets/img/'.$imageURL.'" alt="thumbnail">
             </a>
             <div class = "caption">
               <h4 class = "pull-right">$'.$price.'</h4>
