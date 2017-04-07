@@ -10,8 +10,8 @@ class Database extends PDO {
 		return $comment_num->fetchColumn ();
 	}
   function getNumberOfCommentsForIngredient($ing){
-    $comment_num = $this->query("SELECT count(*) FROM comment WHERE ingredient_name LIKE '%$ing->name%'");
-    return $comment_num->fetchColumn();
+		$comment_num = $this->query("SELECT count(*) FROM comment WHERE ingredient_name LIKE '%$ing->name%'");
+		return $comment_num->fetchColumn();
   }
   function getNumberOfIngredients() {
 		$ingredient_num = $this->query ( "SELECT count(*)  FROM ingredient" );

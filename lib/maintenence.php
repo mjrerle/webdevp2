@@ -1,7 +1,7 @@
 
 <?php
 /**
- * Checks to see if site is in matience mode.
+ * Checks to see if site is in maintainance mode.
  * Jaime Ruiz		initial		Feb 22, 2015
  */
 require_once 'config.php';
@@ -13,7 +13,7 @@ if(isset($config->matience) && $config->matience){
 	?>
 	<main>
 	<div class="container">
-		<p>We're sorry. The site is currently down for maitience.
+		<p>We're sorry. The site is currently down for maintainance.
 			Pleae try again later.</p>
 	</div>
 	</main>
