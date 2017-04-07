@@ -66,6 +66,7 @@
                       if (isset($_SESSION['username'])){
                         echo filter_var($_SESSION['username'],FILTER_SANITIZE_STRING);
                     ?>
+					  <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
                       <li><a href="logout.php">Logout</a></li>
                       <?php
                       }
