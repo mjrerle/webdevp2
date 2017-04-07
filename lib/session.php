@@ -1,7 +1,7 @@
 
 <?php
 require_once "config.php";
-require_once "lib/ingredient.php"
+require_once "lib/ingredient.php";
 session_name($config->session_name);
 session_start();
 function randomString(){
