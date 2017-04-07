@@ -22,6 +22,9 @@ include 'templates/jumbotron.php';
       <?php echo $dbh->getRatingStars($dbh->averageRating($ingredient));?>
       <span class =""><a href="#reviewList"><?php echo $reviewCount;?> Reviews</a></span>
       <h4>$<?php echo $ingredient->price;?></h4>
+	  <?php if (isset($_SESSION['username'])): //adds a cart option if user is signed in ?>
+	  <h4><a href="cart.php<?php echo "?action=cart&id=$productID";?>">Add to Cart</a></h4>
+	  <?php endif;?>
     </div>
     <div class = "col-md-3" id=productPurchaseCol>
     </div>
@@ -38,7 +41,7 @@ include 'templates/jumbotron.php';
           <?php endif;?>
           <?php if(isset($submissionOkay) and $submissionOkay != true):?>
             <div class = "alert alert-danger" id = "formError">
-              <?php echo "There was an error with your review ksubmission, please try again.";?>
+              <?php echo "There was an error with your review submission, please try again.";?>
             </div>
           <?php endif;?>
           <p><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#reviewForm">Review this product</button></p>
