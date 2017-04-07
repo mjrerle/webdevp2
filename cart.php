@@ -105,9 +105,8 @@ endif;
 <div class="cart">
 	<h2 align="center">My Cart</h2>
 	<?php view_cart(); ?>
+	<p align="center"><a href="checkout.php">Checkout</a></p>
 	<p align="center"><a href="products.php">Continue Shopping</a></p>
 </div>
 
 <?php require 'templates/footer.php';?>
-
-
