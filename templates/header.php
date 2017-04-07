@@ -63,10 +63,12 @@
                     </li>
                     <li><a href="login.php">
                     <?php
-                      if (isset($_SESSION['username'])){
+                      if (isset($_SESSION['username'])and $_SESSION['username']!="Guest"){
                         echo filter_var($_SESSION['username'],FILTER_SANITIZE_STRING);
                     ?>
-					  <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+
+        					  <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+
                       <li><a href="logout.php">Logout</a></li>
                       <?php
                       }
