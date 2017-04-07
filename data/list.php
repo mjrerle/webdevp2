@@ -26,11 +26,51 @@ function getIngredientsFromFile(){
   }
   return $ingredients;
 }
-function writeComments($comment){
-  $fh = fopen('comments.csv', 'w+') or die("Can't open file");
-  fputcsv ( $fh, array_keys ( get_object_vars ( $users [0] ) ) );
-  for($i = 0; $i < count ( $users ); $i ++) {
-    fputcsv ( $fh, get_object_vars ( $users [$i] ) );
+function addIngredientToTable($ingredient){
+  $ingredientExists=false;
+  $ingredients = getIngredientsFromFile();
+  for($i=0; $i<count($ingredients);$i++)  if($ingredients[$i]["Name"] == $ingredient->name) $ingredientExists = true;
+  if(!$ingredientExists){
+    array_push($ingredients,array('Name'=>$ingredient->name, 'Price'=>$ingredient->price, 'Description'=>$ingredient->description, 'IMGURL'=>$ingredient->imgURL, 'ID'=>$ingredient->id));
+    writeIngredients($ingredients);
+    return true;
+  }
+  return false;
+}
+
+function updateIngredientFile($ing){
+  $ingredients = getIngredientsFromFile();
+  for($i=0;$i<count($ingredients);$i++){
+    if($ingredients[$i]["ID"] == $ing->id){
+      $ingredients[$i]["Name"] = $ing->name;
+      $ingredients[$i]["Price"] = $ing->price;
+      $ingredients[$i]["Description"] = $ing->description;
+      $ingredients[$i]["IMGURL"] = $ing->imgURL;
+    }
+  }
+  writeIngredients($ingredients);
+}
+
+function addCommentToTable($comment){
+  $comments = getCommentsFromFile();
+  array_push($comments,array('Commenter Name'=>$comment->name, 'Rating'=>$comment->rating, 'Words'=>$comment->words, 'Ingredient Name'=>$comment->ingredient));
+  writeComments($comments);
+}
+
+
+function writeComments($comments){
+  $fh = fopen('data/usercomments.csv', 'w+') or die("Can't open file");
+  fputcsv ( $fh, array_keys (( ($comments [0]) ) ) );
+  for($i = 0; $i < count ( $comments ); $i ++) {
+    fputcsv ( $fh, array_values ( ($comments [$i])) ) ;
+  }
+  fclose ( $fh );
+}
+function writeIngredients($ingredients){
+  $fh = fopen('data/products.csv', 'w+') or die("Can't open file");
+  fputcsv ( $fh, array_keys ( ( $ingredients [0] ) ) );
+  for($i = 0; $i < count ( $ingredients ); $i ++) {
+    fputcsv ( $fh, array_values ( $ingredients [$i] ) );
   }
   fclose ( $fh );
 }
