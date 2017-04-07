@@ -1,7 +1,7 @@
 
 <?php
 require_once "config.php";
-require_once "lib/ingredient.php";
+
 session_name($config->session_name);
 session_start();
 function randomString(){
@@ -21,8 +21,8 @@ if(! isset($_SESSION['randkey'])){
 if (! isset ( $_SESSION ['startTime'] )) {
   $_SESSION ['startTime'] = time ();
 }
-if (! isset ( $_SESSION ['userName'] )) {
-  $_SESSION ['userName'] = "Guest";
+if (! isset ( $_SESSION ['username'] )) {
+  $_SESSION ['username'] = "Guest";
 }
 
 $host = $_SERVER ['HTTP_HOST'];

@@ -34,8 +34,9 @@ class User {
   public static function setupDefaultUsers() {
 	  $users = array ();
   	$i = 0;
-	  $users [$i ++] = new User ( 'test', 'fish', 'New', 'matterle@live.com' );
-    $users [$i ++] = new User ( 'ct310', 'Segovia', 'New', 'nspatil@colostate.edu' );
+	  $users [$i ++] = new User ( 'test', 'fish', 'Customer', 'matterle@live.com' );
+    $users [$i ++] = new User ( 'ct310', 'Segovia', 'Admin', 'nspatil@colostate.edu' );
+    $users[$i ++] = new User('tjnolan', 'lukifer', 'Admin', 'tjnolan@rams.colostate.edu');
     User::writeUsers ( $users );
   }
 
@@ -106,10 +107,10 @@ class User {
     global $_SESSION;
     global $config;
 
-    if(isset($_SESSION["username"])){
+    if(isset($_SESSION['username'])){
       $users = User::readUsers();
       foreach ($users as $user){
-        if($user->username == $_SESSION["username"]){
+        if($user->username == $_SESSION['username']){
           if($user->status != "Banned"){
             return;
           }else{
@@ -123,6 +124,30 @@ class User {
     //If we got here then we need to log in
     header("Location: " . $config->base_url . "/login.php");
     exit();
+  }
+  public static function adminLoginRequired(){
+    global $_SESSION;
+
+    if(isset($_SESSION['username']) and ($_SESSION['username']!="Guest")){
+      $users = User::readUsers();
+      foreach ($users as $user){
+        if($user->username == $_SESSION['username']){
+          if($user->status == "Admin"){
+            return true;
+          }
+          else
+            return false;
+        }
+      }
+    }
+    return false;
+  }
+  public static function customerLoginRequired(){
+    global $_SESSION;
+    if(isset($_SESSION['username']) and $_SESSION['username']!="Guest"){
+      return true;
+    }
+    return false;
   }
   public static function userHashByName($users, $user) {
 	  $res = '';

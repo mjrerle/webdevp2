@@ -10,8 +10,8 @@ class Database extends PDO {
 		return $comment_num->fetchColumn ();
 	}
   function getNumberOfCommentsForIngredient($ing){
-		$comment_num = $this->query("SELECT count(*) FROM comment WHERE ingredient_name LIKE '%$ing->name%'");
-		return $comment_num->fetchColumn();
+    $comment_num = $this->query("SELECT count(*) FROM comment WHERE ingredient_name LIKE '%$ing->name%'");
+    return $comment_num->fetchColumn();
   }
   function getNumberOfIngredients() {
 		$ingredient_num = $this->query ( "SELECT count(*)  FROM ingredient" );
@@ -155,7 +155,7 @@ class Database extends PDO {
 		return Comment::getCommentFromRow ( $result->fetch () );
 	}
 	function updateIngredient($ingredient) {
-		$sql = "UPDATE ingredient SET i_name= :ingredient_name, price=:ingredient_price, description = :ingredient_description, imgURL = :ingredient_imgURL WHERE id = $ingredient";
+		$sql = "UPDATE ingredient SET i_name= :ingredient_name, price=:ingredient_price, description = :ingredient_description, imgURL = :ingredient_imgURL WHERE id = $ingredient->id";
 		$stm = $this->prepare ( $sql );
 		return $stm->execute ( array (
       ":ingredient_name" => $ingredient->name,
@@ -194,11 +194,11 @@ class Database extends PDO {
             VALUES (:c_name, :rating, :words, :id, :ingredient_name)";
     $stm = $this->prepare($sql);
     return $stm->execute(array(
-      ":c_name" => $comment["name"],
-      ":rating" => $comment["rating"],
-      ":words"  => $comment["words"],
-      ":id"     => $comment["id"],
-      ":ingredient_name" => $comment["ingredient"]
+      ":c_name" => $comment->name,
+      ":rating" => $comment->rating,
+      ":words"  => $comment->words,
+      ":id"     => $comment->id,
+      ":ingredient_name" => $comment->ingredient
     ));
   }
   function insertIngredient($ingredient){
@@ -206,11 +206,43 @@ class Database extends PDO {
             VALUES (:i_name, :price, :description, :imgURL, :id)";
     $stm = $this->prepare($sql);
     return $stm->execute(array(
-      ":i_name" => $ingredient["name"],
-      ":price" => $ingredient["price"],
-      ":description" => $ingredient["description"],
-      ":imgURL" => $ingredient["imgURL"],
-      ":id" => $ingredient["ID"]
+      ":i_name" => $ingredient->name,
+      ":price" => $ingredient->price,
+      ":description" => $ingredient->description,
+      ":imgURL" => $ingredient->imgURL,
+      ":id" => $ingredient->id
     ));
   }
+  public function getNumberOfImages(){
+    $img_num = $this->query("SELECT count(*)  FROM images");
+    return $img_num->fetchColumn();
+  }
+
+  public function saveImage($imgArray, $ext){
+    $sql = "INSERT INTO images (name, type, size, ext) VALUES (?,?,?,?)";
+    $stm = $this->prepare($sql);
+    $values = array(
+      $imgArray["name"],
+      $imgArray["type"],
+      $imgArray["size"],
+      $ext
+    );
+    if($stm->execute($values) === FALSE){
+      return -1;
+    }else{
+      return $this->lastInsertId("id");
+    }
+  }
+
+  public function getImages(){
+    $sql = "SELECT * FROM images";
+    return $this->query($sql);
+  }
+
+  public function getImage($id){
+    $sql = "SELECT * FROM images WHERE id ='$id'";
+    return $this->query($sql)->fetch();
+  }
+
+
 }
