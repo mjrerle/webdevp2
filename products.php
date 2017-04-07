@@ -3,7 +3,9 @@ require_once "create.php";
 if(!$dbh=setupProductConnection()) die;
 dropTableByName("ingredient");
 dropTableByName("comment");
+dropTableByName("images");
 createTableIngredient();
+createTableImage();
 createTableComment();
 loadProductsIntoEmptyDatabase();
 if(isset($_GET['action'])){
@@ -48,7 +50,7 @@ function actionReview(){
     if(isset($_GET['id'])){
       global $dbh;
       $id = checkProductID();
-      $ingredient = $dbh->getIngredientByID($id)->name;
+      $ingredient = $dbh->getIngredientByID($id);
       $ratingOkay=$submissionOkay=true;
       $options = FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_LOW | FILTER_FLAG_ENCODE_AMP;
       $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING, $options);
@@ -65,14 +67,14 @@ function actionReview(){
       $options = FILTER_FLAG_ENCODE_AMP | FILTER_FLAG_ENCODE_HIGH | FILTER_FLAG_ENCODE_LOW;
       $words = filter_var($_POST['words'], FILTER_SANITIZE_STRING, $options);
       if($submissionOkay===true){
-        $reviewArray = array(
-          "name" => $name,
-          "rating"=> $rating,
-          "words"=> $words,
-          "id"=> $id,
-          "ingredient"=>$ingredient
-        );
+        $reviewArray = new Comment();
+        $reviewArray->name = $name;
+        $reviewArray->rating=$rating;
+        $reviewArray->words=$words;
+        $reviewArray->id=$dbh->lastInsertID();
+        $reviewArray->ingredient=$ingredient->name;
         $dbh->insertComment($reviewArray);
+        addCommentToTable($reviewArray);
       }
       include 'product_page.php';
     }

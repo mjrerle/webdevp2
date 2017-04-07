@@ -1,21 +1,20 @@
 <?php
-//Tyler 
-//username: tjnolan
-//passwrd:  lukifer
-
 require_once 'templates/page_setup.php';
 $title = "Login";
 $page_name = "login";
-$users = User::readUsers();
+$stm;
 if(isset($_POST['username']) and isset($_POST['password'])){
   $new=strip_tags(filter_var($_POST['username'],FILTER_SANITIZE_STRING));
   $epw=strip_tags(filter_var($_POST['password'],FILTER_SANITIZE_STRING));
-
-  if(password_verify($epw, User::userHashByName($users, $new))){
+  if($user=User::getUser($new, $epw)){
     $_SESSION['startTime'] = time();
-    $_SESSION['username'] = $new;
+    $_SESSION['username'] = $user->username;
     $_SESSION['valid'] = true;
+    $_SESSION['status'] = $user->status;
     header( "location: https://$host$uri/index.php");
+  }
+  else{
+    $stm = "Incorrect username or password";
   }
 }
 
@@ -42,6 +41,11 @@ if(isset($_POST['username']) and isset($_POST['password'])){
 		      <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
  			    <button class="btn btn-lg btn-primary btn-block"  name="submit" value="login" type="Submit">Login</button><br><br>
         </form>
+<?php
+if(isset($stm)){
+  echo '<p style = "color:red;">'.$stm.'</p>';
+}
+?>
         <a href="logout.php">Click here to logout.</a><br>
         <a href="forgot_password.php">Forgot password? Click here to reset.</a><br>
       </div>

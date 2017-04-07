@@ -1,7 +1,5 @@
 <?php
 require_once "templates/page_setup.php";
-$title = "";
-$page_name = "";
 include "templates/header.php";
 $dbh = new Database();
 $productID = checkProductID();
@@ -9,29 +7,43 @@ $productID = checkProductID();
 $ingredient = $dbh->getIngredientByID($productID);
 $reviewArray = $dbh->getCommentsForIngredient($ingredient);
 $reviewCount = $dbh->getNumberOfCommentsForIngredient($ingredient);
+$page_name = $ingredient->name;
+$title = $ingredient->name;
 include 'templates/jumbotron.php';
 ?>
-<div class = "container-fluid product-details">
+<div class = "container-fluid product-details" id ="product_details">
+
   <div class="row">
+
     <div class="col-md-3" id = "productImgCol">
-      <img class = "product-image" src = "<?php echo 'assets/img/'.$ingredient->imgURL;?>" alt="product_image">
+
+      <img class = "product-image" src = "<?php echo 'assets/img/'.$ingredient->imgURL;?>" alt="product_image" style="">
     </div>
     <div class = "col-md-3" id="productDetailsCol">
+<?php
+if (isset($_SESSION['status'])){
+  if($_SESSION['status']=='Admin'){
+    echo
+      '<a href="ingredient_update_form.php?id='.$productID.'" class = "btn bth-default btn-sm">Click here to edit ingredient. <span class ="glyphicon glyphicon-pencil"></span></a><br>';
+  }
+}
+?>
       <h3><?php echo $ingredient->name; ?></h3>
       <p><?php echo $ingredient->description;?></p>
       <?php echo $dbh->getRatingStars($dbh->averageRating($ingredient));?>
       <span class =""><a href="#reviewList"><?php echo $reviewCount;?> Reviews</a></span>
-      <h4>$<?php echo $ingredient->price;?></h4>
-	  <?php if (isset($_SESSION['username'])): //adds a cart option if user is signed in ?>
+
+ <?php if (isset($_SESSION['username']) and $_SESSION['username']!="Guest"): //adds a cart option if user is signed in ?>
 	  <h4><a href="cart.php<?php echo "?action=cart&id=$productID";?>">Add to Cart</a></h4>
 	  <?php endif;?>
+      <h4>$<?php echo $ingredient->price;?></h4>
     </div>
     <div class = "col-md-3" id=productPurchaseCol>
     </div>
   </div>
   <hr>
     <div class = "row">
-      <div class = "col-sm-6" id="reviewList">
+      <div class = "col-sm-6" id="reviewList" style="margin-left:20px;">
         <h3>Reviews and Comments</h3>
           <?php if(!empty($_SESSION['valid'])){?>
           <?php if(isset($submissionOkay) and $submissionOkay ===true):?>
@@ -41,7 +53,7 @@ include 'templates/jumbotron.php';
           <?php endif;?>
           <?php if(isset($submissionOkay) and $submissionOkay != true):?>
             <div class = "alert alert-danger" id = "formError">
-              <?php echo "There was an error with your review submission, please try again.";?>
+              <?php echo "There was an error with your review ksubmission, please try again.";?>
             </div>
           <?php endif;?>
           <p><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#reviewForm">Review this product</button></p>

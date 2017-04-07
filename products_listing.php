@@ -7,7 +7,6 @@ $current_tab = "i_name";
 $current_page=1;
 $num_per_page=4;
 
-
 if(isset($_SESSION['username'])) $submissionOkay=true;
 $dbh = new Database();
 $max_pages = ceil($dbh->getNumberOfIngredients()/$num_per_page);

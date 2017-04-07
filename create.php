@@ -46,6 +46,16 @@ function createTableComment(){
             ingredient_name varchar(255))";
   createTableGeneric($sql);
 }
+function createTableImage(){
+  $sql = "CREATE TABLE images(
+          id INTEGER PRIMARY KEY ASC,
+          name varchar(255),
+          type varchar(255),
+          size int(10),
+          ext varchar(5)
+          )";
+  createTableGeneric($sql);
+}
 
 function createTableGeneric($sql){
   global $dbh;
