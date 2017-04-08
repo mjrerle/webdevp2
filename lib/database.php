@@ -179,7 +179,17 @@ class Database extends PDO {
 	 * Function used to support deletion of an album
 	 */
 	function deleteComment($comment) {
-		$sql = "DELETE FROM comment WHERE id = $comment";
+		$sql = "DELETE * FROM comment WHERE id LIKE %$comment->id%";
+		if ($this->exec ( $sql ) === FALSE) {
+			echo '<pre class="bg-danger">';
+			print_r ( $this->errorInfo () );
+			echo '</pre>';
+			return FALSE;
+		}
+		return TRUE;
+	}
+	function deleteIngredient($ingredient) {
+    $sql = "DELETE FROM ingredient WHERE id LIKE %$ingredient->id%";
 		if ($this->exec ( $sql ) === FALSE) {
 			echo '<pre class="bg-danger">';
 			print_r ( $this->errorInfo () );

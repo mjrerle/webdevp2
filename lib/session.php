@@ -1,4 +1,3 @@
-
 <?php
 require_once "config.php";
 require_once "lib/ingredient.php";
@@ -17,14 +16,11 @@ function randomString(){
 if(! isset($_SESSION['randkey'])){
   $_SESSION['randkey'] = randomString();
 }
-
 if (! isset ( $_SESSION ['startTime'] )) {
   $_SESSION ['startTime'] = time ();
 }
 if (! isset ( $_SESSION ['username'] )) {
   $_SESSION ['username'] = "Guest";
 }
-
 $host = $_SERVER ['HTTP_HOST'];
 $uri = rtrim ( dirname ( $_SERVER ['PHP_SELF'] ), '/\\' );
-

@@ -10,8 +10,8 @@ class config{
   public $site_lmod = "3/19/17 6:00PM";
   public $matience = false;
   public $session_name = "p2_with_mjrerle_and_tjnolan";
-  public $up_local     = '/s/bach/g/under/mjrerle/public_html/p2/uploads';
-  public $up_public    = '/~mjrerle/p2/uploads';
+  public $up_local     = '/s/bach/g/under/mjrerle/public_html/p2/assets/img/';
+  public $up_public    = '/s/bach/g/under/mjrerle/public_html/p2/assets/img/';
   public $upload_dir   = ''; /* Selected below based upon server */
   public $pad_length   = 6;
 }

@@ -35,13 +35,14 @@ class User {
 	  $users = array ();
   	$i = 0;
 	  $users [$i ++] = new User ( 'test', 'fish', 'Customer', 'matterle@live.com' );
+	  $users [$i ++] = new User ( 'mjrerle', 'mjrerle', 'Admin', 'matterle@live.com' );
     $users [$i ++] = new User ( 'ct310', 'Segovia', 'Admin', 'nspatil@colostate.edu' );
     $users[$i ++] = new User('tjnolan', 'lukifer', 'Admin', 'tjnolan@rams.colostate.edu');
     User::writeUsers ( $users );
   }
 
   public static function writeUsers($users) {
-    $fh = fopen(dirname(__FILE__) . '/users.csv', 'w+') or die("Can't open file");
+    $fh = fopen('lib/users.csv', 'w+') or die("Can't open file");
     fwrite($fh, $users[0]->headings()."\n");
     for ($i = 0; $i < count($users); $i++) {
       fwrite($fh, $users[$i]->contents()."\n");
@@ -50,8 +51,8 @@ class User {
   }
 
   public static function resetUserPassword($email, $newpwhash){
-    $input = fopen('users.csv', 'r') or die ("Can't open file");
-    $output = fopen('temp.csv', 'w+');
+    $input = fopen('lib/users.csv', 'r') or die ("Can't open file");
+    $output = fopen('lib/temp.csv', 'w+');
     while(false !== ($data = fgetcsv($input))){
       if($data[2] == $email){
         $data[1] = $newpwhash;
@@ -60,8 +61,8 @@ class User {
     }
     fclose($input);
     fclose($output);
-    unlink('users.csv');
-    rename('temp.csv','users.csv');
+    unlink('lib/users.csv');
+    rename('lib/temp.csv','lib/users.csv');
   }
 
   public static function checkEmail($users, $email){
@@ -84,7 +85,7 @@ class User {
     return false;
   }
 
-  public static function readUsers() {
+public static function readUsers() {
 	 if (! file_exists(dirname(__FILE__).'/users.csv')) { User::setupDefaultUsers(); }
     $contents = file_get_contents(dirname(__FILE__).'/users.csv');
     $lines    = preg_split("/\r|\n/", $contents, -1, PREG_SPLIT_NO_EMPTY);
@@ -103,6 +104,7 @@ class User {
     }
     return $users;
   }
+
   public static function loginRequired(){
     global $_SESSION;
     global $config;
@@ -163,6 +165,7 @@ class User {
     foreach($users as $user){
       if($user->username == $username){
         if(password_verify($password, $user->hash)){
+
           return $user;
         }else{
           //We could just keep going but might as well
