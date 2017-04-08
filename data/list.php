@@ -68,11 +68,26 @@ function writeComments($comments){
 }
 function writeIngredients($ingredients){
   $fh = fopen('data/products.csv', 'w+') or die("Can't open file");
-  fputcsv ( $fh, array_keys ( ( $ingredients [0] ) ) );
+  $heading=array("Name,Price,Description,IMGURL,ID");
+  if(count($ingredients)==0)  fputcsv ( $fh, array_keys($heading) );
+  else{
+    fputcsv($fh, array_keys($ingredients[0]));
+  }
   for($i = 0; $i < count ( $ingredients ); $i ++) {
     fputcsv ( $fh, array_values ( $ingredients [$i] ) );
   }
   fclose ( $fh );
+}
+function deleteIngredientFromFile($ingredient){
+  $arr = getIngredientsFromFile();
+  $out = array();
+  foreach($arr as $line){
+    if(($line["ID"]) != $ingredient->id){
+      $out[]=$line;
+    }
+  }
+  fclose($arr);
+  writeIngredients($out);
 }
 function getCommentsFromFile(){
   //Pretty much cut and paste from our original file
