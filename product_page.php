@@ -24,7 +24,10 @@ include 'templates/jumbotron.php';
 if (isset($_SESSION['status'])){
   if($_SESSION['status']=='Admin'){
     echo
-      '<a href="ingredient_update_form.php?id='.$productID.'" class = "btn bth-default btn-sm">Click here to edit ingredient. <span class ="glyphicon glyphicon-pencil"></span></a><br>';
+      '<div>
+        <a href="ingredient_form.php?action=update&id='.$productID.'" class = "btn bth-default btn-sm">Click here to edit ingredient. <span class ="glyphicon glyphicon-pencil"></span></a>
+        <a href="ingredient_form.php?action=delete&id='.$productID.'" class = "btn bth-default btn-sm">Click here to delete ingredient. <span class ="glyphicon glyphicon-minus"></span></a><br>
+        </div>';
   }
 }
 ?>

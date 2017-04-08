@@ -7,7 +7,6 @@ $current_tab = "i_name";
 $current_page=1;
 $num_per_page=4;
 
-if(isset($_SESSION['username'])) $submissionOkay=true;
 $dbh = new Database();
 $max_pages = ceil($dbh->getNumberOfIngredients()/$num_per_page);
 $offset = $num_per_page * ($current_page-1);
@@ -18,6 +17,11 @@ include "templates/jumbotron.php";
   <div class = "row">
     <div class = "col-md-12">
       <div class="row">
+<?php
+if(isset($_SESSION['status']) and $_SESSION['status']=="Admin"){
+  echo '<a href="ingredient_form.php?action=new" class = "btn bth-default btn-sm">Click here to add new ingredient. <span class ="glyphicon glyphicon-plus"></span></a><br>';
+}
+?>
 <?php
 foreach($ingredients as $i){
   $productID=$i->id;

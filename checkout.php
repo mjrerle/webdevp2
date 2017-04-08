@@ -5,16 +5,16 @@ include "templates/header.php";
 include "templates/jumbotron.php";
 ?>
 
-<?php 
+<?php
 function total (){
 	$total = 0.0;
 	foreach($_SESSION['array'] as $itemsKey => $items){
 		foreach($items as $valueKey => $value){
 			if($valueKey == 'price'){
 				$total += $value;
-			} 
+			}
 		}
-	} 
+	}
 	return $total;
 }
 ?>
