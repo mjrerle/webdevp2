@@ -2,19 +2,20 @@
 require_once 'templates/page_setup.php';
 $title = "Forgot Password";
 $page_name = "forgotpassword";
-  $users = readUsers();
+  $users = User::readUsers();
   include 'templates/header.php';
+  include 'templates/jumbotron.php';
   echo '
 </head>
 <body>
   <div class="header">
-    <h2> CT 310 Login Example <?php echo $exNumText ?>: Login </h2>
+    <h2> Your password is being reset.</h2>
   </div>
         ';
   $str="";
   if(isset($_POST['forgot_password'])){
     $che = strip_tags(filter_var($_POST['email'],FILTER_SANITIZE_EMAIL));
-    if(checkEmail($users,$che)){
+    if(User::checkEmail($users,$che)){
       $_SESSION['email'] = $che;
       $email = $che;
       $password = $_SESSION['randkey'];

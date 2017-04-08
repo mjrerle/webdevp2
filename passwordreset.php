@@ -2,7 +2,6 @@
 require_once 'templates/page_setup.php';
 $title = "Password Reset";
 $page_name = "passwordreset";
-  include 'templates/header.php';
 
   if(isset($_POST['reset_pass_form'])){
     $email = $_SESSION['email'];
@@ -12,17 +11,17 @@ $page_name = "passwordreset";
     if(isset($_POST['confirmpassword']))   $confirmpassword = strip_tags(filter_var($_POST['confirmpassword'],FILTER_SANITIZE_STRING));
     $hash = $_POST['q'];
     $resetkey = $_SESSION['randkey'];
-    echo $resetkey;
     if($resetkey == $hash){
       if($password == $confirmpassword){
         $newpwhash = password_hash($password);
-        resetUserPassword($email,$newpwhash);
+        User::resetUserPassword($email,$newpwhash);
         //update user entry
         header("location: https://$host$uri/index.php");
       }
     }
   }
-  include 'header.php';
+  include 'templates/header.php';
+  include 'templates/jumbotron.php';
 ?>
 
 </head>

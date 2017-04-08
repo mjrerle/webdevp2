@@ -6,6 +6,7 @@ $stm;
 if(isset($_POST['username']) and isset($_POST['password'])){
   $new=strip_tags(filter_var($_POST['username'],FILTER_SANITIZE_STRING));
   $epw=strip_tags(filter_var($_POST['password'],FILTER_SANITIZE_STRING));
+  print_r(User::getUser($new,$epw));
   if($user=User::getUser($new, $epw)){
     $_SESSION['startTime'] = time();
     $_SESSION['username'] = $user->username;
