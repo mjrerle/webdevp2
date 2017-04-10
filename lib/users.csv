@@ -1,5 +1,14 @@
-"username	hash	status	email"
-"test	$2a$10$KIPjC3D5a2QXCxRfaPTSc.QmqyWEmhFfovvjclttXnOUqjReKn.kW	Customer	matterle@live.com"
-"mjrerle	$2a$10$TuVIqVXq7t8ZdOesUFwxpuRqWlrywkRVwEKoiBofUva4BYm6G3G5O	Admin	matterle@live.com"
-"ct310	$2a$10$vGrWhL.KjTEFo5mLxwE6VeKDiZZNBzz23lBKOrG8XRbCHI1FrvOae	Admin	nspatil@colostate.edu"
-"tjnolan	$2a$10$V9m0RjzGvuYmQG7Rctwt8eGxVcLJOUnI.SzezGJUbPb/f7tx1YSpe	Admin	tjnolan@rams.colostate.edu"
+username,hash,status,email
+test,$2a$10$VRj.su.zzd6l0.vrpDmVkeMRVt5WRAoyxsbm9LWy6gC2FaIm3Ola6,Customer,matterle@live.com
+mjrerle,$2a$10$VRj.su.zzd6l0.vrpDmVkeMRVt5WRAoyxsbm9LWy6gC2FaIm3Ola6,Admin,matterle@live.com
+ct310,$2a$10$BABM1sTpIUEoV2qKzTeYg.HXWkx/VCeJ0m6uC6fmUz9PXXHxtvcMC,Admin,nspatil@colostate.edu
+tjnolan,$2a$10$9/1TZU2P8GbLefD7VYelM.g.os1fg5SsUP978o3F/eDMxkkvaSwTm,Admin,tjnolan@rams.colostate.edu
+
+
+
+
+
+
+
+
+

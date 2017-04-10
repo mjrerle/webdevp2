@@ -42,13 +42,14 @@ class User {
   }
 
   public static function writeUsers($users) {
-    $fh = fopen('lib/users.csv', 'w+') or die("Can't open file");
-    fwrite($fh, $users[0]->headings()."\n");
-    for ($i = 0; $i < count($users); $i++) {
-      fwrite($fh, $users[$i]->contents()."\n");
+    $fh=fopen('lib/users.csv', 'w+') or die("Can't open file");
+    fputcsv($fh, array_keys(get_object_vars($users[0])));
+    for($i=0;$i<count($users);$i++){
+      fputcsv($fh,get_object_vars($users[$i]));
     }
     fclose($fh);
   }
+
 
   public static function resetUserPassword($email, $newpwhash){
     $input = fopen('lib/users.csv', 'r') or die ("Can't open file");
@@ -86,24 +87,24 @@ class User {
   }
 
 public static function readUsers() {
-	 if (! file_exists(dirname(__FILE__).'/users.csv')) { User::setupDefaultUsers(); }
-    $contents = file_get_contents(dirname(__FILE__).'/users.csv');
-    $lines    = preg_split("/\r|\n/", $contents, -1, PREG_SPLIT_NO_EMPTY);
-    $keys     = preg_split("/\t/", $lines[0]);
-    $i        = 0;
-    for ($j = 1; $j < count($lines); $j++) {
-      $vals = preg_split("/\t/", $lines[$j]);
-      if (count($vals) > 1) {
-        $u = new User();
-        for ($k = 0; $k < count($vals); $k++) {
-          $u->$keys[$k] = $vals[$k];
-        }
-        $users[$i] = $u;
-        $i++;
-      }
-    }
-    return $users;
+  if(!file_exists('lib/users.csv')){
+    User::setupDefaultUsers();
   }
+  $users = array();
+  $fh = fopen('lib/users.csv', 'r') or die("Can't open file");
+  $keys = fgetcsv($fh);
+  while(($vals=fgetcsv($fh))!=false){
+    if(count($vals)>1){
+      $u = new User();
+      for($k=0;$k<count($vals);$k++){
+        $u->$keys[$k]=$vals[$k];
+      }
+      $users[] = $u;
+    }
+  }
+  fclose($fh);
+  return $users;
+}
 
   public static function loginRequired(){
     global $_SESSION;
