@@ -59,10 +59,15 @@ if ($_FILES && isset ( $_FILES ["image"] )) {
   }
 }
 
-if(!empty($_POST['name']) and !empty($_POST['price']) and !empty($_POST['description'])){
+if(!empty($_POST['name']) or !empty($_POST['price']) or !empty($_POST['description'])){
   require_once 'data/list.php';
   $ing = new Ingredient();
-  $ing->name = strip_tags($_POST['name']);
+  if(!empty($_POST['name'])){
+    $ing->name = strip_tags($_POST['name']);
+  }
+  else{
+    $ing->name = $ingredient->name;
+  }
   if($idFound==true){
     $ing->id = $id;
   }
@@ -70,8 +75,18 @@ if(!empty($_POST['name']) and !empty($_POST['price']) and !empty($_POST['descrip
     $id=$db->getNumberOfIngredients()+1;
     $ing->id=$id;
   }
-  $ing->price= doubleval($_POST['price']);
-  $ing->description= strip_tags($_POST['description']);
+  if(!empty($_POST['price'])){
+    $ing->price= doubleval($_POST['price']);
+  }
+  else{
+    $ing->price = $ingredient->price;
+  }
+  if(!empty($_POST['description'])){
+    $ing->description= strip_tags($_POST['description']);
+  }
+  else{
+    $ing->description = $ingredient->description;
+  }
   if(isset($filename)){
     $ing->imgURL=$filename;
   }
@@ -137,7 +152,7 @@ if($idFound==true){
                   <input type="text" class="form-control" name="name" id="name"  placeholder="<?php if(isset($ingredient))echo $ingredient->name;?>"/>
 								</div>
 							</div>
-						</div>
+						</div><br>
 
 						<div class="form-group">
 							<label for="price" class="cols-sm-2 control-label">Price</label>
@@ -147,7 +162,7 @@ if($idFound==true){
 									<input type="text" class="form-control" name="price" id="price"  placeholder="<?php if(isset($ingredient))echo $ingredient->price;?>"/>
 								</div>
 							</div>
-						</div>
+						</div><br>
 
 						<div class="form-group">
 							<label for="description" class="cols-sm-2 control-label">Description</label>
@@ -157,7 +172,7 @@ if($idFound==true){
 									<input type="text" class="form-control" name="description" id="description"  placeholder="<?php if(isset($ingredient))echo $ingredient->description;?>"/>
 								</div>
 							</div>
-						</div>
+						</div><br>
  <div class="form-group">
           <label class="sr-only" for="image">Upload Image</label>
           <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_file_size; ?>" />
@@ -165,7 +180,7 @@ if($idFound==true){
         </div>
         <button type="submit" class="btn btn-default">
           <span class="glyphicon glyphicon-upload" aria-label="Upload"></span>
-        </button>
+        </button><br>
 
 
 					</form>

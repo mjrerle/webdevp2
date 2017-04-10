@@ -46,7 +46,13 @@ if(isset($stm)){
 }
 ?>
         <a href="logout.php">Click here to logout.</a><br>
+<?php
+if(isset($_SESSION['valid'])){
+?>
         <a href="forgot_password1.php">Forgot password? Click here to reset.</a><br>
+<?php
+}
+?>
       </div>
     <div class="col-md-4"></div>
   </div>
