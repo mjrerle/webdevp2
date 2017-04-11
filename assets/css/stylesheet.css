@@ -142,6 +142,13 @@ nav > .container {
     border: 1px solid #eee;
 }
 
+/* ----- Forgot Password Form ----- */
+
+.select_email {
+	display: block;
+	text-align: center;
+}
+
 /* ----- SHOPPING CART ----- */
 
 .table {
@@ -160,6 +167,9 @@ table {
     background-color: beige;
 }
 
+.checkout {
+	text-align: center;
+}
 
 /* ----- FOOTER STYLES ----- */
 
