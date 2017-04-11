@@ -36,7 +36,8 @@ class User {
   	$i = 0;
 	  $users [$i ++] = new User ( 'test', 'fish', 'Customer', 'matterle@live.com' );
 	  $users [$i ++] = new User ( 'mjrerle', 'mjrerle', 'Admin', 'matterle@live.com' );
-    $users [$i ++] = new User ( 'ct310', 'Segovia', 'Admin', 'nspatil@colostate.edu' );
+    $users [$i ++] = new User ( 'ct310', 'A835E0', 'Admin', 'ct310@cs.colostate.edu' );
+    $users [$i ++] = new User ( 'fred', '3B23E6', 'Customer', 'ct310@cs.colostate.edu' );
     $users[$i ++] = new User('tjnolan', 'lukifer', 'Admin', 'tjnolan@rams.colostate.edu');
     User::writeUsers ( $users );
   }
