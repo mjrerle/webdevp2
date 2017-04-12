@@ -72,7 +72,7 @@ function actionReview(){
         $reviewArray->name = $name;
         $reviewArray->rating=$rating;
         $reviewArray->words=$words;
-        $reviewArray->id=$dbh->lastInsertID();
+        $reviewArray->id=$dbh->lastInsertID()+1;
         $reviewArray->ingredient=$ingredient->name;
         $dbh->insertComment($reviewArray);
         addCommentToTable($reviewArray);

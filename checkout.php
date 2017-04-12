@@ -5,7 +5,7 @@ include "templates/header.php";
 include "templates/jumbotron.php";
 ?>
 
-<?php 
+<?php
 	if (isset($_POST['check'])){
 		$users = User::readUsers(); //get users from users.csv
 		foreach ($users as $u){
@@ -23,22 +23,22 @@ include "templates/jumbotron.php";
 		include 'templates/footer.php';
 		die();
 	}
-	
+
 	function clear_cart(){
 		unset($_SESSION['array']);
 		unset($_SESSION['items']);
 	}
 ?>
 
-<?php 
+<?php
 function total (){
 	$total = 0.0;
 	$row = $_SESSION['array'];
-	
+
 	foreach ($row as $ing){
 		$total += $_SESSION['items'][$ing->id]['Total'];
 	}
-	
+
 	return $total;
 }
 ?>

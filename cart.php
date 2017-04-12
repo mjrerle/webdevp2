@@ -6,60 +6,58 @@ include "templates/jumbotron.php";
 $dbh = new Database();
 ?>
 
-<?php 
+<?php
 function total (){
 	$total = 0.0;
 	$row = $_SESSION['array'];
-	
+
 	foreach ($row as $ing){
 		$total += $_SESSION['items'][$ing->id]['Total'];
 	}
-	
+
 	return $total;
 }
 ?>
 
-<?php 
+<?php
 function view_cart(){
-	$row = $_SESSION['array'];  
+	$row = $_SESSION['array'];
 	echo '<table class="table">';
-	echo '<tr> 
-            <th>Name</th> 
+	echo '<tr>
+            <th>Name</th>
             <th>Price</th>
 			<th>Quantity</th>
           </tr> ';
-
 	foreach ($row as $ing){
 		$price = number_format((float)$_SESSION['items'][$ing->id]['Total'], 2 , '.' , ''); // formatted to 2 decimals
 		$quant = $_SESSION['items'][$ing->id]['Quantity']; //quantity
-			echo '<tr>'; 
+			echo '<tr>';
 			echo "<td>$ing->name</td>";
 			echo "<td>$price</td>";
 			echo "<td>$quant</td>";
-			echo "<td><a href=\"cart.php?remove=yes&id=$ing->id\">Remove from Cart</a></td>";			
+			echo "<td><a href=\"cart.php?remove=yes&id=$ing->id\">Remove from Cart</a></td>";
 			echo '</tr>';
-		
+
 	}
 	echo '</table>';
 }
-
 function remove_item($id){
 	foreach($_SESSION['array'] as $itemsKey => $items){
 		foreach($items as $valueKey => $value){
 			if($valueKey == 'id' && $value == $id){
 				//delete this particular object from the $array
 				unset($_SESSION['array'][$itemsKey]);
-			} 
+			}
 		}
-	} 
+	}
 	if (empty($_SESSION['array']))
 		unset($_SESSION['array']);
 }
 ?>
 
-<?php 
+<?php
 if (isset($_GET['remove'])):
-	$id = $_GET['id']; 
+	$id = $_GET['id'];
 	$quant = $_SESSION['items'][$id]['Quantity'];
 	if ($quant <= 1):
 		unset($_SESSION['items'][$id]); //remove
@@ -74,7 +72,7 @@ if (isset($_GET['remove'])):
 endif;
 ?>
 
-<?php 
+<?php
 if (!isset($_SESSION['array']) and !isset($_GET['id'])):
 	echo '<h3 align="center">Your Cart is Empty</h3>';
 	echo '<p align="center"><a href="products.php">Continue Shopping</a></p>';
@@ -85,7 +83,7 @@ endif;
 
 
 
-<?php 
+<?php
 if (isset($_GET['id'])):
 	$id = $_GET['id'];
 	if (!isset($_SESSION['array'])):
@@ -94,13 +92,12 @@ if (isset($_GET['id'])):
 		$_SESSION['array'] = $row;
 		$_SESSION['items'] = array();
 		$_SESSION['items'][$id] = array('Quantity' => 1, 'Total' => $row[0]->price);
-
 	else:
-		$row = $_SESSION['array'];  
+		$row = $_SESSION['array'];
 		if (isset($_SESSION['items'][$id])): //item exists already
 			$_SESSION['items'][$id]['Quantity']++;
 			$price = $dbh->getIngredientbyID($id)->price;
-			$_SESSION['items'][$id]['Total'] += $price; 
+			$_SESSION['items'][$id]['Total'] += $price;
 		else:
 			//create a new item
 			$_SESSION['items'][$id] = array('Quantity' => 1, 'Total' => $dbh->getIngredientbyID($id)->price);
@@ -109,8 +106,6 @@ if (isset($_GET['id'])):
 		endif;
 	endif;
 endif;
-
-
 ?>
 
 <div class="cart">
@@ -122,4 +117,3 @@ endif;
 </div>
 
 <?php require 'templates/footer.php';?>
-

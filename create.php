@@ -73,7 +73,7 @@ function loadProductsIntoEmptyDatabase(){
   $ingredients = getIngredientsFromFile();
   $comments = getCommentsFromFile();
   $sql_ingredient = "INSERT INTO ingredient(i_name, price, description, imgURL, id) VALUES (:name, :price, :description, :imgURL, :id)";
-  $sql_comment = "INSERT INTO comment(c_name, rating, words, ingredient_name) VALUES(:name, :rating, :words, :ingredient_name)";
+  $sql_comment = "INSERT INTO comment(c_name, rating, words, ingredient_name, id) VALUES(:name, :rating, :words, :ingredient_name, :id)";
   $ing_stm = $dbh->prepare($sql_ingredient);
   $com_stm = $dbh->prepare($sql_comment);
   foreach($ingredients as $current_ingredient){
@@ -105,7 +105,9 @@ function testedInsertComment($comment, $stmt){
     ':name'=>$comment['Commenter Name'],
     ':rating'=>$comment['Rating'],
     ':words'=>$comment['Words'],
-    ':ingredient_name'=>$comment['Ingredient Name']))){
+    ':ingredient_name'=>$comment['Ingredient Name'],
+    ':id'=>$comment['ID']
+  ))){
     echo '<pre class="bg-danger">';
     print_r($dbh->errorInfo());
     echo '</pre>';

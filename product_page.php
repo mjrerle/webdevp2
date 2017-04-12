@@ -47,6 +47,20 @@ if (isset($_SESSION['status'])){
   <hr>
     <div class = "row">
       <div class = "col-sm-6" id="reviewList" style="margin-left:20px;">
+<?php
+  if(isset($_SESSION['status'])){
+    if($_SESSION['status']=='Admin'){
+      foreach ($reviewArray as $r){
+      echo
+        '<div>
+            <a href="comment_form.php?action=edit&id='.$r->id.'" class="btn bth-default btn-sm">Edit '.$r->name.'\'s comment. <span class ="glyphicon glyphicon-pencil"></span></a>
+            <a href="comment_form.php?action=delete&id='.$r->id.'" class="btn bth-default btn-sm">Delete '.$r->name.'\'s comment. <span class ="glyphicon glyphicon-minus"></span></a>
+        </div>
+        ';
+      }
+    }
+  }
+?>
         <h3>Reviews and Comments</h3>
           <?php if(!empty($_SESSION['valid'])){?>
           <?php if(isset($submissionOkay) and $submissionOkay ===true):?>
