@@ -1,7 +1,7 @@
 Name,Price,Description,IMGURL,ID
-Salt,2.75,Salty,000001.jpg,1
-Sugar,1.50,Sweet.,000002.jpg,2
-Tomato,2.11,"Hot dog.",000003.jpg,3
-Caraway,3.79,"Exotic Spices",caraway.jpg
-Tomatillo,2.98,"Not Tomatos",tomatillo.jpg
-Zucchini,3.50,"Is it a Cucumber?",zucchini.jpg 
+Salt,2.44,Salty,000002.jpg,1
+Sugar,3.66,Sweet,000003.jpg,2
+Flour,9.88,Baking,000004.jpg,3
+Caraway,3.79,"Exotic spices",000005.jpg,4
+Tomatillo,2.98,"Not tomatoes",000006.jpg,5
+Zucchini,3.5,"Is it a cucumber",000007.jpg,6

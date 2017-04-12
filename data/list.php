@@ -50,17 +50,33 @@ function updateIngredientFile($ing){
   }
   writeIngredients($ingredients);
 }
+function updateCommentFile($com){
+  $comments = getCommentsFromFile();
+  for($i=0;$i<count($comments);$i++){
+    if($comments[$i]["ID"] == $com->id){
+      $comments[$i]["Commenter Name"] = $com->name;
+      $comments[$i]["Rating"] = $com->rating;
+      $comments[$i]["Words"] = $com->words;
+      $comments[$i]["Ingredient Name"] = $com->ingredient;
+    }
+  }
+  writeComments($comments);
+}
 
 function addCommentToTable($comment){
   $comments = getCommentsFromFile();
-  array_push($comments,array('Commenter Name'=>$comment->name, 'Rating'=>$comment->rating, 'Words'=>$comment->words, 'Ingredient Name'=>$comment->ingredient));
+  array_push($comments,array('Commenter Name'=>$comment->name, 'Rating'=>$comment->rating, 'Words'=>$comment->words, 'Ingredient Name'=>$comment->ingredient, 'ID'=>$comment->id));
   writeComments($comments);
 }
 
 
 function writeComments($comments){
   $fh = fopen('data/usercomments.csv', 'w+') or die("Can't open file");
-  fputcsv ( $fh, array_keys (( ($comments [0]) ) ) );
+  $heading=array("Commenter Name,Rating,Words,Ingredient Name,ID");
+  if(count($comments)==0) fputcsv($fh, array_keys($heading));
+  else{
+    fputcsv ( $fh, array_keys (( ($comments [0]) ) ) );
+  }
   for($i = 0; $i < count ( $comments ); $i ++) {
     fputcsv ( $fh, array_values ( ($comments [$i])) ) ;
   }
@@ -88,6 +104,17 @@ function deleteIngredientFromFile($ingredient){
   }
   fclose($arr);
   writeIngredients($out);
+}
+function deleteCommentFromFile($comment){
+  $arr = getCommentsFromFile();
+  $out = array();
+  foreach($arr as $line){
+    if(($line["ID"]) != $comment->id){
+      $out[]=$line;
+    }
+  }
+  fclose($arr);
+  writeComments($out);
 }
 function getCommentsFromFile(){
   //Pretty much cut and paste from our original file
