@@ -243,6 +243,16 @@ class Database extends PDO {
       return $this->lastInsertId("id");
     }
   }
+  public function deleteImage($id){
+    $sql = "DELETE FROM images WHERE id LIKE %$id%";
+ 		if ($this->exec ( $sql ) === FALSE) {
+			echo '<pre class="bg-danger">';
+			print_r ( $this->errorInfo () );
+			echo '</pre>';
+			return FALSE;
+		}
+		return TRUE;
+  }
 
   public function getImages(){
     $sql = "SELECT * FROM images";
