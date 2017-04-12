@@ -20,6 +20,7 @@
       $comment->rating = $row['rating'];
       $comment->words = $row['words'];
       $comment->ingredient = $row['ingredient_name'];
+      $comment->id = $row['id'];
       return $comment;
     }
     public static function getRatingFromRow($row){

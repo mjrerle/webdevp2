@@ -142,7 +142,7 @@ class Database extends PDO {
 	 * Functions used in the update data example
 	 */
 	function getCommentDetails($id) {
-		$sql = "SELECT id FROM comment WHERE id = $id";
+		$sql = "SELECT * FROM comment WHERE id = $id";
 		$result = $this->query ( $sql );
 		if ($result === FALSE) {
 			// Only doing this for class. Would never do this in real life
@@ -165,7 +165,7 @@ class Database extends PDO {
 		) );
 	}
 	function updateComment($comment) {
-		$sql = "UPDATE comment SET c_name = :comment_name, rating = :comment_rating, words = :comment_words, ingredient_name = :ingredient WHERE id = $comment";
+		$sql = "UPDATE comment SET c_name = :comment_name, rating = :comment_rating, words = :comment_words, ingredient_name = :ingredient WHERE id = $comment->id";
 		$stm = $this->prepare ( $sql );
 		return $stm->execute ( array (
         ":comment_name" => $comment->name,
@@ -179,7 +179,7 @@ class Database extends PDO {
 	 * Function used to support deletion of an album
 	 */
 	function deleteComment($comment) {
-		$sql = "DELETE * FROM comment WHERE id LIKE %$comment->id%";
+		$sql = "DELETE FROM comment WHERE id LIKE %$comment->id%";
 		if ($this->exec ( $sql ) === FALSE) {
 			echo '<pre class="bg-danger">';
 			print_r ( $this->errorInfo () );
