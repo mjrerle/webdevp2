@@ -15,8 +15,15 @@ if(isset($_GET['action']) and isset($_SESSION['status']) and $_SESSION['status']
     $ingredient = $db->getIngredientByID($id);
     if(strip_tags($_GET['action'])=="delete"){
       require_once 'data/list.php';
+      $coms = $db->getCommentsForIngredient($ingredient);
+      foreach($coms as $c){
+        $db->deleteComment($c);
+        deleteCommentFromFile($c);
+      }
+
       $db->deleteIngredient($ingredient);
       deleteIngredientFromFile($ingredient);
+
       header('location: products.php');
     }
   }
@@ -36,7 +43,9 @@ if ($_FILES && isset ( $_FILES ["image"] )) {
         $error_msg = "Unknown file type";
       } else {
         // Let database save assign unique integer id.
+
         $fid = $db->saveImage ( $_FILES ["image"], $ext );
+        if($db->getImage($fid)) $fid+=1;
         if ($fid == - 1) {
           $error_msg = "Unable to store image in DB";
         } else {
@@ -87,7 +96,7 @@ if(!empty($_POST['name']) or !empty($_POST['price']) or !empty($_POST['descripti
   else{
     $ing->description = $ingredient->description;
   }
-  if(isset($filename)){
+  if(!empty($filename)){
     $ing->imgURL=$filename;
   }
   else{
